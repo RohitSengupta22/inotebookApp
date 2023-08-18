@@ -1,10 +1,18 @@
+import { useContext, createContext, useState } from "react";
 import NavbarComp from "./Navbar";
 
+
+
+
+
 const About = () => {
+
+  
     return (
         <>
             <NavbarComp />
             <h1>This is about us page of iNotebook</h1>
+            
         </>
 
     )

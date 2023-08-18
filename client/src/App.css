@@ -36,3 +36,27 @@
     transform: rotate(360deg);
   }
 }
+
+#Navbar{
+  background-color: rgba(149, 101, 230, 0.8) !important;
+}
+
+.navcontent{
+  display: flex;
+  margin-left: 10px;
+}
+
+.NoteContainer{
+  margin-top: 50px !important;
+}
+
+.addnote{
+
+  position: absolute;
+  left: 45%;
+  top: 35%;
+}
+
+.active{
+  color: blanchedalmond !important;
+}
