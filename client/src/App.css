@@ -53,10 +53,39 @@
 .addnote{
 
   position: absolute;
-  left: 45%;
-  top: 35%;
+  left: 50%;
+  transform: translateX(-50%);
+  margin-top: 20px;
+}
+
+.NoteComponent{
+  position: relative;
+  top: 70px;
+}
+
+#dltIcon{
+  
+    font-size: larger;
+    position: absolute;
+    left: 90%;
+    top: 50%; 
+    color: red;
+}
+
+#editIcon{
+
+  font-size: larger;
+  position: absolute;
+  left: 94%;
+  top: 50%; 
+  color: purple;
+
 }
 
 .active{
   color: blanchedalmond !important;
+}
+
+i{
+  cursor: pointer;
 }
