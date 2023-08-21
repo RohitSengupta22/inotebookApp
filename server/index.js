@@ -1,4 +1,5 @@
 const express = require('express')
+var cors = require('cors')
 const connectToMongo = require('./Db.js');
 const router = require('./Router/Router.js');
 
@@ -6,7 +7,8 @@ connectToMongo();
 
 
 const app = express()
-const port = 3005
+const port = 3006
+app.use(cors())
 
 app.use(express.json());
 
