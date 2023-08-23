@@ -16,7 +16,7 @@ function NavbarComp() {
 
   return (
     
-      <Navbar expand="lg" className="bg-body-tertiary" id="Navbar" >
+      <Navbar expand="lg" className="bg-body-tertiary fixed-top" id="Navbar" >
      
             <div className='navcontent'>
             <Navbar.Brand href="#home">i<span style={{color: "rgba(255, 46, 30, 0.8)",fontWeight: "bold"}}>Notebook</span></Navbar.Brand>

@@ -185,6 +185,8 @@ const Home = () => {
 
     dltNote(index)
     handleClose()
+    setToaststate(true)
+    toast("Note Deleted!")
 
   }
 
@@ -292,7 +294,7 @@ const Home = () => {
               Are you sure you want to delete this note permanently?
             </Typography>
             <Button variant="success" onClick={() => deleteNote(id)} >Yes</Button>{' '}
-            <Button variant="danger" style={{ float: "right" }} onClick={handleClose}>Cancel</Button>{' '}
+            <Button variant="danger" onClick={handleClose}>Cancel</Button>{' '}
           </Box>
         </Modal>
       </div>
