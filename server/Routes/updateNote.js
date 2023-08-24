@@ -23,7 +23,7 @@ const updateNote = async (req, res) => {
 
     if (notes.user.toString() === req.data.id) {
       await Notes.findByIdAndUpdate(req.params.id, { $set: newNote });
-      res.send("Note updated");
+      res.send(newNote);
       console.log(notes.user.toString()+" "+req.data.id)
      
     } else {
