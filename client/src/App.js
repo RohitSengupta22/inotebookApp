@@ -5,6 +5,7 @@ import NavbarComp from "./Navbar";
 import About from "./About";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { TextContext } from "./Navbar";
+import Login from "./Login";
 
 
 function App() {
@@ -13,12 +14,16 @@ function App() {
     <BrowserRouter>
       <>
         <Routes>
-          <Route path="/" element={<Home />} />
+          
+        <Route path="/" element={<Login />} />
+          <Route path="home" element={<Home />} />
           <Route path="about" element={<About />} />
+         
         </Routes>
 
       </>
     </BrowserRouter>
+  
   );
 }
 

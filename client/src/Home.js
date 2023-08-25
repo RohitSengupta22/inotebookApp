@@ -3,6 +3,7 @@ import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { NoteContext } from './Context/NoteState';
+// import { authContext } from './Login';
 import NavbarComp from './Navbar';
 import Container from 'react-bootstrap/esm/Container';
 import Card from 'react-bootstrap/Card';
@@ -11,7 +12,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 import './App.css'
+
 
 
 const style = {
@@ -29,13 +32,15 @@ const style = {
 
 const Home = () => {
 
-  const Notes = useContext(NoteContext);
+  // const Notes = useContext(NoteContext);
+  const authToken = localStorage.getItem('Token')
   const [note, setNote] = useState({ title: '', description: '', tags: '' })
   const [mnote, setmNote] = useState({ title: '', description: '', tags: '' }) // for storing note data into update modal
-  const [notesArr, setNotesArr] = useState(Notes);
+  const [notesArr, setNotesArr] = useState([]);
   const [id, setId] = useState(null)
   const [upid, setupId] = useState(null) // for storing id of note to be updated
   const [toaststate, setToaststate] = useState(true)
+  const navigate = useNavigate();
 
   //states for storing modal comp states
   const [open, setOpen] = React.useState(false);
@@ -51,26 +56,29 @@ const Home = () => {
 
   //function to open update modal and set update note data into mnote
 
-  const handleUpdOpen = (index)=>{ 
+  const handleUpdOpen = (index) => {
     setUpdOpen(true);
-  
-    for (let x of notesArr){
-      if(x._id===index){
-        setmNote({ title: x.title,
+
+    for (let x of notesArr) {
+      if (x._id === index) {
+        setmNote({
+          title: x.title,
           description: x.description,
-          tags: x.tags})
+          tags: x.tags
+        })
       }
     }
 
     setupId(index)
-  
+
   }
 
   // close update modal
-  const handleUpdClose = () =>{
+  const handleUpdClose = () => {
     setUpdOpen(false)
-
     
+
+
   }
 
 
@@ -87,7 +95,7 @@ const Home = () => {
       credentials: "same-origin",
       headers: {
         "Content-Type": "application/json",
-        "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkYzdkNjQ1YmJiNzQ2Y2E2NDg2MTliIn0sImlhdCI6MTY5MjQ0MTkzN30.igD2PVIk-Oy67jHokXADp2jPqe4nlnioBfX7I9gSLyg "
+        "auth-token": authToken
       },
       redirect: "follow",
       referrerPolicy: "no-referrer",
@@ -118,12 +126,12 @@ const Home = () => {
         credentials: "same-origin",
         headers: {
           "Content-Type": "application/json",
-          "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkYzdkNjQ1YmJiNzQ2Y2E2NDg2MTliIn0sImlhdCI6MTY5MjQ0MTkzN30.igD2PVIk-Oy67jHokXADp2jPqe4nlnioBfX7I9gSLyg " // Replace with your actual auth token
+          "auth-token": authToken,
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
         body: JSON.stringify(data)
-      });
+      })
 
       // console.log(response); 
       const res = await response.json();
@@ -190,7 +198,7 @@ const Home = () => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkYzdkNjQ1YmJiNzQ2Y2E2NDg2MTliIn0sImlhdCI6MTY5MjQ0MTkzN30.igD2PVIk-Oy67jHokXADp2jPqe4nlnioBfX7I9gSLyg '
+          'auth-token': authToken
         }
       })
 
@@ -211,8 +219,8 @@ const Home = () => {
 
   }
 
-// API call to update note
-  async function updateNote(data,id) {
+  // API call to update note
+  async function updateNote(data, id) {
 
     try {
 
@@ -220,7 +228,7 @@ const Home = () => {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
-          'auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjRkYzdkNjQ1YmJiNzQ2Y2E2NDg2MTliIn0sImlhdCI6MTY5MjQ0MTkzN30.igD2PVIk-Oy67jHokXADp2jPqe4nlnioBfX7I9gSLyg '
+          'auth-token': authToken
         },
         redirect: "follow",
         referrerPolicy: "no-referrer",
@@ -231,11 +239,11 @@ const Home = () => {
       console.log(res)
       console.log(notesArr)
 
-      for(let x of notesArr){
-        if(x._id===id){
-          x.title=res.title
-          x.description=res.description
-          x.tags=res.tags
+      for (let x of notesArr) {
+        if (x._id === id) {
+          x.title = res.title
+          x.description = res.description
+          x.tags = res.tags
         }
       }
 
@@ -254,8 +262,8 @@ const Home = () => {
 
   // function to update note in frontend
 
-  const updNote = () =>{
-    updateNote(mnote,upid)
+  const updNote = () => {
+    updateNote(mnote, upid)
   }
 
 
@@ -310,7 +318,9 @@ const Home = () => {
             style={{ height: '30px', border: "1px solid blue" }}
             name="title"
             value={note.title}
-            onChange={handleChange} />
+            onChange={handleChange} 
+            required
+            />
         </FloatingLabel>
 
         <FloatingLabel controlId="floatingTextarea2" label="Notes...">
@@ -321,13 +331,17 @@ const Home = () => {
             name="description"
             value={note.description}
             onChange={handleChange}
+            required
           />
         </FloatingLabel>
         <FloatingLabel controlId="floatingSelect" label="Select a tag" className="mt-3">
           <Form.Select aria-label="Floating label select example" style={{ height: '30px', border: "1px solid blue" }}
             name="tags"
             value={note.tags}
-            onChange={handleChange} >
+            onChange={handleChange} 
+            required
+            >
+            
             <option>Open this select menu</option>
             <option value="Personal">Personal</option>
             <option value="Proffesional">Proffesional</option>
@@ -338,6 +352,9 @@ const Home = () => {
 
         <div className='NoteComponent'>
 
+          <div className='container'>
+            {notesArr.length === 0 && <h4 style={{textAlign: "center",marginTop: "30px"}}>Currently there are no notes for you</h4>}
+          </div>
           {notesArr.map((elem, index) => {
 
             index = elem._id
@@ -353,7 +370,7 @@ const Home = () => {
                 <Card.Body style={{ color: "blue", maxWidth: "60%", fontWeight: "bold" }}>{elem.description}</Card.Body>
                 <Card.Body style={{ color: "red" }}>{elem.tags}</Card.Body>
                 <i className="fa-solid fa-trash" id="dltIcon" onClick={() => handleOpen(elem._id)}></i>
-                <i className="fa-solid fa-pen-to-square" id="editIcon" onClick={()=>handleUpdOpen(elem._id)}></i>
+                <i className="fa-solid fa-pen-to-square" id="editIcon" onClick={() => handleUpdOpen(elem._id)}></i>
               </Card>
             );
           })}
@@ -392,45 +409,45 @@ const Home = () => {
         >
           <Box sx={style}>
             <Typography id="modal-modal-title" variant="h6" component="h2">
-             Edit the note:-
+              Edit the note:-
             </Typography>
 
             <FloatingLabel
-          controlId="floatingTextarea"
-          label="Title"
-          className="mb-3"
-        >
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            style={{ height: '30px', border: "1px solid blue" }}
-            name="title"
-            value={mnote.title}
-            onChange={handleMChange} />
-        </FloatingLabel>
+              controlId="floatingTextarea"
+              label="Title"
+              className="mb-3"
+            >
+              <Form.Control
+                as="textarea"
+                placeholder="Leave a comment here"
+                style={{ height: '30px', border: "1px solid blue" }}
+                name="title"
+                value={mnote.title}
+                onChange={handleMChange} />
+            </FloatingLabel>
 
-        <FloatingLabel controlId="floatingTextarea2" label="Notes...">
-          <Form.Control
-            as="textarea"
-            placeholder="Leave a comment here"
-            style={{ height: '100px', border: "3px solid blue" }}
-            name="description"
-            value={mnote.description}
-            onChange={handleMChange}
-          />
-        </FloatingLabel>
-        <FloatingLabel controlId="floatingSelect" label="Select a tag" className="mt-3">
-          <Form.Select aria-label="Floating label select example" style={{ height: '30px', border: "1px solid blue" }}
-            name="tags"
-            value={mnote.tags}
-            onChange={handleMChange} >
-            <option>Open this select menu</option>
-            <option value="Personal">Personal</option>
-            <option value="Proffesional">Proffesional</option>
-            <option value="Others">Others</option>
-          </Form.Select>
-        </FloatingLabel>
-           
+            <FloatingLabel controlId="floatingTextarea2" label="Notes...">
+              <Form.Control
+                as="textarea"
+                placeholder="Leave a comment here"
+                style={{ height: '100px', border: "3px solid blue" }}
+                name="description"
+                value={mnote.description}
+                onChange={handleMChange}
+              />
+            </FloatingLabel>
+            <FloatingLabel controlId="floatingSelect" label="Select a tag" className="mt-3">
+              <Form.Select aria-label="Floating label select example" style={{ height: '30px', border: "1px solid blue" }}
+                name="tags"
+                value={mnote.tags}
+                onChange={handleMChange} >
+                <option>Open this select menu</option>
+                <option value="Personal">Personal</option>
+                <option value="Proffesional">Proffesional</option>
+                <option value="Others">Others</option>
+              </Form.Select>
+            </FloatingLabel>
+
             <Button variant="success" className="mt-3" onClick={updNote}>Update</Button>{' '}
             <Button variant="danger" className="mt-3" onClick={handleUpdClose}>Cancel</Button>{' '}
           </Box>

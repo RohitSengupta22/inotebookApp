@@ -12,14 +12,14 @@ const login = async (req, res) => {
         if(mailformat.test(req.body.email)){
 
             if (!user) {
-                res.send("User not found");
+                res.status(500).send("User not found");
             } else {
                 const compare = await bcrypt.compare(req.body.password, user.password);
                 
                 if (!compare) {
-                    res.send("Incorrect password");
+                    res.status(500).send("Incorrect password");
                 } else {
-                    res.send("Login successful");
+                    
                     
                     const data = {
                         user: {
@@ -28,8 +28,8 @@ const login = async (req, res) => {
                     }
                 
                     const authToken = jwt.sign(data,secret);
-                    console.log(user.name)
-                    console.log(authToken)
+                    res.json({ authToken }); 
+                    
                 }
             }
         }

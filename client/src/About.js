@@ -11,7 +11,7 @@ const About = () => {
     return (
         <>
             <NavbarComp />
-            <h1>This is about us page of iNotebook</h1>
+            <h1 style={{marginTop: "50px"}}>This is about us page of iNotebook</h1>
             
         </>
 

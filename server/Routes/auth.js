@@ -25,7 +25,7 @@ const auth = async (req, res) => {
         }
     }
 
-    const authToken = jwt.sign(data,secret);
+   
 
     if ((req.body.name === '' || req.body.name.length <= 3) && !mailformat.test(req.body.email)) {
         res.send(errObj.name + " and " + errObj.email)
@@ -40,11 +40,12 @@ const auth = async (req, res) => {
         const existingUser = await User.findOne({ email: req.body.email });
 
         if (existingUser) {
-            res.send("User already exists");
+            res.status(500).send("User already exists");
         } else {
             user.save();
-            res.send("User registered successfully");
-            console.log(authToken)
+            const authToken = jwt.sign(data,secret);
+            res.json({ authToken }); 
+            
         }
     }
 }

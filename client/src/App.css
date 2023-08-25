@@ -89,3 +89,77 @@
 i{
   cursor: pointer;
 }
+.Login{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: 2px solid rgba(149, 101, 230, 1);
+  height: 400px;
+  width: 350px;
+  padding: 20px; /* Add some padding to the container */
+  background-color: white;
+  box-shadow: 5px 10px #888888;
+}
+
+.Signup{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  border: 2px solid rgba(149, 101, 230, 1);
+  height: 430px;
+  width: 350px;
+  padding: 20px; /* Add some padding to the container */
+  background-color: white;
+  box-shadow: 5px 10px #888888;
+}
+
+.LoginForm{
+  display: flex; /* Use flexbox to align items horizontally and vertically */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.signupForm{
+  display: flex; /* Use flexbox to align items horizontally and vertically */
+  flex-direction: column; /* Stack items vertically */
+  align-items: center; /* Center items horizontally */
+  justify-content: center;
+  margin-top: 30px;
+}
+
+ .Credbox{
+  margin-bottom: 10px !important;
+  width: 100%;
+}
+
+.Loginbtn{
+  position: relative;
+  width: 100% !important;
+  background-color: rgba(149, 101, 230, 1) !important;
+  margin-top: 10px !important;
+}
+
+.signupbtn{
+  position: relative;
+  width: 100% !important;
+  background-color: rgb(187, 104, 27) !important;
+  margin-top: 10px !important;
+}
+
+.logoutbtn{
+ float: right !important;
+ margin-right: 10px;
+}
+
+.circular{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  z-index: 4;
+}
+

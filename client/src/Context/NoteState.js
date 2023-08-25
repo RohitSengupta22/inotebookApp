@@ -5,7 +5,7 @@ export const NoteContext = createContext();
 const NoteState = (props) =>{
 
     const storedNotes =[]
-       const [notes,setNotes] = useState(storedNotes)
+       const [notes,setNotes] = useState("New Note")
     return(
         <NoteContext.Provider value={notes}>
             {props.children}
