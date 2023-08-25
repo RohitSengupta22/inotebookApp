@@ -104,9 +104,11 @@ const Login = () => {
                 const res = await response.json();
                 setAuthToken(res.authToken)
                 localStorage.setItem('Token', res.authToken)
+                setCircular(true)
 
-
-                navigate('/home');
+                setTimeout(() => {
+                    navigate('/home');
+                }, 3000);
             } else {
                 toast("User Already exists")
             }
@@ -139,7 +141,7 @@ const Login = () => {
             }} />
             {Login ? (<div className="Login">
 
-                <h4 style={{ textAlign: "center" }}>Login</h4>
+                <h4 style={{ textAlign: "center" }}>Login to i<span style={{color: "rgba(255, 46, 30, 0.8)",fontWeight: "bold"}}>Notebook</span></h4>
 
                 <form className='LoginForm'>
 
@@ -170,7 +172,7 @@ const Login = () => {
 
                 (<div className="Signup">
 
-                    <h4 style={{ textAlign: "center" }}>Sign Up</h4>
+                    <h4 style={{ textAlign: "center" }}>Join i<span style={{color: "rgba(255, 46, 30, 0.8)",fontWeight: "bold"}}>Notebook</span></h4>
 
                     <form className='signupForm'>
 
